@@ -1,22 +1,22 @@
+#PD_SubsRETR : Fetch Movies Subtitles with One click!
+#Creator / Developer Name : Priyadharshan Saba
+#Script : Shell Script, Python, Apple Scripts
+#Python Dependencis: mechanize, requests, beautifulSoup4, numpy (>=1.10), pandas
+#Runtime : Python2
+
+
 import sys
 sys.path.append("/usr/local/lib/python2.7/site-packages")
 import requests
 import mechanize
 from bs4 import BeautifulSoup
-#import pandas
+import numpy as np
+import pandas as pd
+
 
 
 br = mechanize.Browser()
 br.set_handle_robots(False)
-#login_usn = raw_input()
-
-
-
-
-
-def getBranch(x):
-    branch_list = ['CS','IS','EE','EC','ME','BT','CV']
-    return branch_list[x]
 
 def colist(x):
     college_list = ['1MV']
@@ -42,7 +42,9 @@ def getGrade(n):
 def fetch(branch):
     hashcheck=0
     check_notnull=False
-    for usn_i in range(1,131):
+    usns , names, gpas, level_flag = [], [], [], []
+
+    for usn_i in range(1,130):
         try:
             if usn_i<10:
                 fusn_i="00"+str(usn_i)
@@ -52,7 +54,8 @@ def fetch(branch):
                 fusn_i=str(usn_i)
 
             uid="1MV15"+str(branch)+str(fusn_i)
-
+            level_flag.append('u')
+            usns.append(uid)
             br.open("http://results.vtu.ac.in/vitaviresultcbcs/index.php")
             br.select_form(nr=0)
             br.form['lns'] = uid
@@ -81,7 +84,8 @@ def fetch(branch):
                     elif flag==1:
                         student_name = i.text.strip(" : ")
                         flag=0
-
+                level_flag.append('n')
+                names.append(capitalize(student_name))
                 mar = ['mark']
                 print student_usn,student_name
                 for div in soup.findAll('div',{'style':'text-align: left;width: 400px;'}):
@@ -122,23 +126,45 @@ def fetch(branch):
                         sum+=gp[i]*2.0
                     else:
                         sum+=gp[i]*4.0
+                level_flag.append('g')
+                gpas.append(str(sum/26)[:4])
                 print sum/26,"\n\n"
                 del finalm[:]
                 del mar[:]
                 sum=0
+                del level_flag[:]
         except:
+            del mar[:]
+            print level_flag
+            for i in level_flag:
+                if i=='u':
+                    del usns[-1]
+                elif i=='n':
+                    del names[-1]
+                else:
+                    del gpas[-1]
+            del level_flag[:]
             try:
                 del finalm[:]
-                del mar[:]
-                sum=0
                 continue
             except:
                 continue
 
+    # Creating Dataframes
+    df = pd.DataFrame({'usn':usns,'name':names,'gpa':gpas})
+    df.to_csv('dataset.csv', sep='\t', encoding='utf-8')
+    print df
+
+def capitalize(name):
+    sname=''
+    for i in name.split(' '):
+        sname=sname+(i[:1].upper()+i[1:].lower())+" "
+    return sname
 
 
+#Main
+branch_list = ['CS','IS','EE','EC','ME','BT','CV']
+for i in branch_list:
+    fetch(i)
 
 
-for i in range(0,1):
-    bran = getBranch(i)
-    fetch(bran)
