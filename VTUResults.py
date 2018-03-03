@@ -1,4 +1,8 @@
-#http://results.vtu.ac.in/cbcs_17/result_page.php?usn=1mv15cs088
+#VTU Result Scrapper
+#Creator / Developer Name : Priyadharshan Saba
+#Script : Python
+#Python Dependencis: requests, beautifulSoup4
+#Runtime : Python2
 
 from bs4 import BeautifulSoup
 import requests
@@ -80,13 +84,3 @@ for hashcc in range(0,1):
                     break
 
 
-"""
-    final_url="http://results.vtu.ac.in/cbcs_17/result_page.php?usn=1MV15CS088"
-    re = requests.get(final_url)
-    soup = BeautifulSoup(re.content,"lxml")
-    for td in soup.findAll('td',{'style':'padding-left:15px'}):
-    student_name = td.text[2:].upper()
-    """
-
-
-#[u0'', u1'', u2'', u3'Subject Code', u4'Subject Name', u5'Internal Marks', u6'External Marks', u7'Total', u8'Result', u'', u'', u'', u'', u'15MAT41', u'ENGINEERING MATHEMATICS-IV', u'16', u'49', u'65', u'P', u'', u'', u'', u'', u'15CS42', u'SOFTWARE ENGINEERING', u'13', u'28', u'41', u'P', u'', u'', u'', u'', u'15CS43', u'DESIGN AND ANALYSIS OF ALGORITHMS', u'13', u'65', u'78', u'P', u'', u'', u'', u'', u'15CS44', u'MICROPROCESSORS AND MICROCONTROLLERS', u'20', u'28', u'48', u'P', u'', u'', u'', u'', u'15CS45', u'OBJECT ORIENTED PROGRAMMING WITH JAVA', u'17', u'46', u'63', u'P', u'', u'', u'', u'', u'15CS46', u'DATA COMMUNICATIONS', u'14', u'38', u'52', u'P', u'', u'', u'', u'', u'15CSL47', u'DESIGN AND ANALYSIS OF ALGORITHM LABORATORY', u'20', u'70', u'90', u'P', u'', u'', u'', u'', u'15CSL48', u'MICROPROCESSORS LABORATORY', u'15', u'78', u'93', u'P', u'', u'', u'']

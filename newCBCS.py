@@ -1,3 +1,9 @@
+#VTU Result Scrapper
+#Creator / Developer Name : Priyadharshan Saba
+#Script : Python
+#Python Dependencis: mechanize, requests, beautifulSoup4, numpy (>=1.10), pandas
+#Runtime : Python2
+
 import requests
 import mechanize
 from bs4 import BeautifulSoup
@@ -14,9 +20,6 @@ subPass=[None]*10
 
 br = mechanize.Browser()
 br.set_handle_robots(False)
-#login_usn = raw_input()
-
-
 
 
 
@@ -94,10 +97,10 @@ for i in range(5,7):
     fetch(bran)
 
 
-#t1 = threading.Thread(target=fetch)
-#t2 = threading.Thread(target=wait)
-#t1.start()
-#t2.start()
-#t1.join()
-#t2.join()
+t1 = threading.Thread(target=fetch)
+t2 = threading.Thread(target=wait)
+t1.start()
+t2.start()
+t1.join()
+t2.join()
 

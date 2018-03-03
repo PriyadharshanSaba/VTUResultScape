@@ -1,6 +1,6 @@
-#PD_SubsRETR : Fetch Movies Subtitles with One click!
+#VTU Result Scrapper
 #Creator / Developer Name : Priyadharshan Saba
-#Script : Shell Script, Python, Apple Scripts
+#Script : Python
 #Python Dependencis: mechanize, requests, beautifulSoup4, numpy (>=1.10), pandas
 #Runtime : Python2
 
